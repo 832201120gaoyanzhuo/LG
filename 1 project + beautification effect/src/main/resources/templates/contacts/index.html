@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>通讯录管理</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+        <script th:src="@{/js/jquery/jquery-3.6.4.min.js}"></script>
+        <style>
+            .iframe-box {
+                padding: 20px;
+                background: #fff;
+            }
+            
+            .search {
+                background: #f8f8f8;
+                padding: 20px;
+                border-radius: 4px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+            
+            .search .layui-form-item {
+                display: inline-block;
+                margin-right: 20px;
+                margin-bottom: 0;
+                width: calc(33.33% - 100px);
+            }
+            
+            .search .layui-btn {
+                margin-top: -2px;
+            }
+            
+            .layui-table-cell {
+                height: 40px;
+                line-height: 40px;
+            }
+            
+            .top-red {
+                color: #ff5722;
+                font-weight: 500;
+            }
+            
+            .layui-btn-xs {
+                padding: 0 10px;
+                font-size: 12px;
+                margin: 0 2px;
+            }
+            
+            .layui-clear-space {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+        <script th:src="@{/layui/layui.js}"></script>
+        <div class="iframe-box">
+            <form class="layui-form search">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="studentId" placeholder="请输入学号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">号码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phone" placeholder="请输入号码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <button type="button" lay-submit lay-filter="onSearch" class="layui-btn layui-btn-normal">
+                    <i class="layui-icon layui-icon-search"></i> 搜索
+                </button>
+                <button type="button" id="add" class="layui-btn layui-btn-primary">
+                    <i class="layui-icon layui-icon-addition"></i> 添加通讯录
+                </button>
+            </form>
+            <table class="ui-usertable" id="table" lay-filter="tableFilter"></table>
+        </div>
+        <script>
+            $(function () {
+                var layer = layui.layer
+                $('#add').on('click', function () {
+                    layer.open({
+                        type: 2,
+                        title: '添加通讯录',
+                        shadeClose: true,
+                        shade: 0,
+                        area: ['500px', '70%'],
+                        content: '/contacts/dialog'
+                    })
+                })
+                var param = {}
+                var sexOptions = []
+                layui.use(['table', 'form', 'util'], function() {
+                    var table = layui.table
+                    var form = layui.form
+                    table.render({
+                        elem: '#table',
+                        url: '/contacts/page',
+                        method: 'get',
+                        where: param,
+                        height: 'full-85',
+                        limits: [10, 20, 30, 50],
+                        page: true,
+                        cols: [
+                            [
+                                { field: 'id', title: '主键', align: 'center' },
+                                { field: 'name', title: '姓名', align: 'center', templet: d => d.top == '1' ? '<div class="top-red"><i class="layui-icon layui-icon-star-fill" style="font-size: 16px; color: red;"></i>' + d.name + '</div>' : d.name },
+                                { field: 'studentId', title: '学号', align: 'center' },
+                                { field: 'phone', title: '手机号码', align: 'center' },
+                                { field: 'address', title: '地址', align: 'center' },
+                                { field: 'email', title: '邮箱', align: 'center' },
+                                { field: 'sex', title: '性别', align: 'center' },
+                                { field: 'edit', title: '操作', align: 'center', toolbar: "#userbar" },
+                            ]
+                        ],
+                        id: 'tableReload',
+                        response: {
+                            statusCode: 200
+                        },
+                        parseData: function(res ){
+                            return {
+                                'code': res.status,
+                                'msg': res.msg,
+                                'count': res.data.total,
+                                'data': res.data.records
+                            }
+                        }
+                    })
+                    form.on('submit(onSearch)', data => {
+                        param = data.field
+                        table.reload('tableReload', {
+                            where: param
+                        })
+                        return false
+                    })
+                    table.on('tool(tableFilter)', function (e) {
+                        const id = e.data.id
+                        const formData = e.data
+                        if (e.event == 'edit') {
+                            // 编辑
+                            layer.open({
+                                type: 2,
+                                title: '编辑通讯录',
+                                shadeClose: true,
+                                shade: 0,
+                                area: ['500px', '70%'],
+                                content: '/contacts/dialog?id=' + id
+                            })
+                        } else if (e.event == 'remove') {
+                            // 删除
+                            $.ajax({
+                                url: '/contacts/' + id,
+                                type: 'DELETE',
+                                dataType: 'json',
+                                success: res => {
+                                    if (res.status == 200) {
+                                        layer.msg(res.msg, {
+                                            icon: 1,
+                                            time: 2000
+                                        }, function () {
+                                            window.location.reload()
+                                        })
+                                    } else {
+                                        layer.msg(res.msg)
+                                    }
+                                }
+                            })
+                        } else if (e.event == 'top' || e.event == 'unTop') {
+                            formData.top = e.event == 'top' ? '1' : '0'
+                            $.ajax({
+                                url: '/contacts',
+                                type: 'PUT',
+                                contentType: 'application/json',
+                                data: JSON.stringify(formData),
+                                dataType: 'json',
+                                success: res => {
+                                    if (res.status == 200) {
+                                        layer.msg(res.msg, {
+                                            icon: 1,
+                                            time: 2000
+                                        }, function() {
+                                            table.reload('tableReload') // 重新加载表格
+                                        })
+                                    } else {
+                                        layer.msg(res.msg)
+                                    }
+                                }
+                            })
+                        }
+                    })
+                })
+            })
+        </script>
+        <script type="text/html" id="userbar">
+            <div class="layui-clear-space">
+                {{#  if(d.top == '0'){ }}
+                <a class="layui-btn layui-btn-primary layui-btn-xs edit" lay-event="top">VIP</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-primary layui-btn-xs edit" lay-event="unTop">取消VIP</a>
+                {{#  } }}
+                <a class="layui-btn layui-btn-xs edit" lay-event="edit">修改</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs remove" lay-event="remove">删除</a>
+            </div>
+        </script>
+    </body>
+</html>

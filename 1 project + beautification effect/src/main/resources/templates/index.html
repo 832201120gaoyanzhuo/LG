@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>通讯录管理系统</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+        <script th:src="@{/js/jquery/jquery-3.6.4.min.js}"></script>
+        <script th:src="@{/layui/layui.js}"></script>
+        <style>
+            body {
+                margin: 0;
+                background: #f2f2f2;
+            }
+            
+            header {
+                background: #23262E;
+                color: #fff;
+                padding: 0 20px;
+                height: 60px;
+                line-height: 60px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+            
+            header div {
+                font-size: 18px;
+                font-weight: 500;
+            }
+            
+            .layout {
+                display: flex;
+                position: absolute;
+                top: 60px;
+                bottom: 0;
+                width: 100%;
+            }
+            
+            .layui-panel {
+                width: 200px;
+                margin: 15px 0 15px 15px;
+                background: #fff;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+            
+            .layui-menu {
+                background: none;
+                box-shadow: none;
+            }
+            
+            .layui-menu .layui-menu-item-group {
+                padding: 0;
+            }
+            
+            .layui-menu .layui-menu-body-title {
+                padding: 12px 20px;
+                color: #333;
+                font-size: 14px;
+                cursor: pointer;
+                transition: all .3s;
+            }
+            
+            .layui-menu .layui-menu-body-title:hover {
+                background: #f6f6f6;
+                color: #1E9FFF;
+            }
+            
+            .main {
+                flex: 1;
+                margin: 15px;
+                background: #fff;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+            
+            #main {
+                border: none;
+                height: 100%;
+                width: 100%;
+                border-radius: 4px;
+            }
+            
+            .layui-menu .layui-menu-body-title i {
+                margin-right: 5px;
+                transition: all .3s;
+            }
+            
+            .layui-menu .layui-menu-body-title:hover i {
+                transform: scale(1.2);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div>
+                <i class="layui-icon layui-icon-user"></i>
+                通讯录管理系统
+            </div>
+        </header>
+        <div class="layout">
+            <div class="layui-panel">
+                <ul class="layui-menu" id="docDemoMenu">
+                    <li class="layui-menu-item-group" lay-options="{type: 'group'}">
+                        <ul>
+                            <li class="menu" id="/contacts/contactsList">
+                                <div class="layui-menu-body-title">
+                                    <i class="layui-icon layui-icon-list"></i>
+                                    我的通讯录
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="main">
+                <iframe id="main"></iframe>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                var layer = layui.layer;
+                // 默认加载通讯录页面
+                $('#main').attr('src', '/contacts/contactsList');
+                
+                $('.menu').on('click', function () {
+                    $(this).addClass('layui-this').siblings().removeClass('layui-this');
+                    $('#main').attr('src', $(this).attr('id'));
+                });
+                
+                // 添加页面加载动画
+                $('#main').on('load', function() {
+                    layer.closeAll('loading');
+                });
+                
+                $('#main').on('beforeunload', function() {
+                    layer.load(2);
+                });
+            });
+        </script>
+    </body>
+</html>
