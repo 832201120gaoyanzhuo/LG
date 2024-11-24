@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f2f2f2;
+}
+
+.iframe-box {
+    padding: 15px;
+    background: #fff;
+    border-radius: 4px;
+    min-height: 100vh;
+}
+
+.layui-form-label {
+    width: 90px;
+}
+
+.layui-input-block {
+    margin-left: 120px;
+}
+
+.layui-input,
+.layui-select,
+.layui-textarea {
+    border-radius: 2px;
+}
+
+.layui-btn {
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.layui-btn:hover {
+    opacity: 0.9;
+}
+
+.layui-table {
+    margin: 10px 0;
+}
+
+.layui-table-view {
+    border-radius: 4px;
+}
+
+.layui-layer {
+    border-radius: 4px;
+}
+
+.layui-icon {
+    margin-right: 5px;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>通讯录管理系统</title>
+        <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+        <link rel="stylesheet" th:href="@{/css/common.css}"/>
+        <link rel="stylesheet" th:href="@{/css/index.css}"/>
+    </head>
+    <body>
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="logo">
+                    <i class="layui-icon layui-icon-user"></i>
+                    通讯录管理系统
+                </div>
+            </nav>
+        </header>
+
+        <main class="layout">
+            <aside class="sidebar layui-panel">
+                <nav class="layui-menu" id="mainMenu">
+                    <ul>
+                        <li class="menu-item" data-url="/contacts/contactsList">
+                            <div class="layui-menu-body-title">
+                                <i class="layui-icon layui-icon-list"></i>
+                                我的通讯录
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <section class="main-content">
+                <iframe id="mainFrame" name="mainFrame"></iframe>
+            </section>
+        </main>
+
+        <script th:src="@{/js/jquery/jquery-3.6.4.min.js}"></script>
+        <script th:src="@{/layui/layui.js}"></script>
+        <script th:src="@{/js/index.js}"></script>
+    </body>
+</html>

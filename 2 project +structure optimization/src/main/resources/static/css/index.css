@@ -1,0 +1,78 @@
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #23262E;
+    padding: 0 20px;
+    z-index: 1000;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.logo .layui-icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.layout {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    background: #f2f2f2;
+}
+
+.sidebar {
+    width: 200px;
+    background: #fff;
+    margin: 15px 0 15px 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.menu-item {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.menu-item:hover {
+    background: #f6f6f6;
+}
+
+.menu-item.active {
+    background: #1E9FFF;
+}
+
+.menu-item.active .layui-menu-body-title {
+    color: #16baaa;
+}
+
+.main-content {
+    flex: 1;
+    margin: 15px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+#mainFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+} 
