@@ -1,0 +1,103 @@
+.search-section {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.search-form .layui-form-item {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    width: 300px;
+}
+
+.search-form .layui-form-label {
+    width: 80px;
+    padding: 9px 15px;
+    line-height: 20px;
+    border: 1px solid #e6e6e6;
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+    text-align: center;
+    background-color: #FAFAFA;
+    margin: 0;
+}
+
+.search-form .layui-input-block {
+    margin-left: 0;
+    flex: 1;
+}
+
+.search-form .layui-input {
+    border-radius: 0 2px 2px 0;
+}
+
+.search-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    padding-top: 10px;
+}
+
+.table-section {
+    background: #fff;
+    border-radius: 4px;
+}
+
+.top-red {
+    color: #ff5722;
+    font-weight: 500;
+}
+
+.top-red .layui-icon {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.table-toolbar {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.table-toolbar .layui-btn {
+    padding: 0 10px;
+}
+
+/* 导入弹窗样式 */
+.import-dialog {
+    padding: 20px;
+}
+
+.import-tips {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.import-tips p {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.import-upload {
+    text-align: center;
+}
+
+.upload-tips {
+    margin-top: 10px;
+    color: #999;
+    font-size: 12px;
+} 
