@@ -1,0 +1,51 @@
+.dialog-container {
+    padding: 25px;
+}
+
+.contact-form {
+    max-width: 100%;
+}
+
+.contact-form .layui-form-item {
+    margin-bottom: 25px;
+}
+
+.contact-form .layui-input-block {
+    margin-left: 110px;
+}
+
+.contact-form .layui-form-label {
+    width: 80px;
+}
+
+.contact-form .layui-input,
+.contact-form .layui-select {
+    height: 38px;
+    line-height: 38px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.contact-form .layui-input:focus,
+.contact-form .layui-select:focus {
+    border-color: #1E9FFF !important;
+    box-shadow: 0 0 0 2px rgba(30,159,255,.2);
+}
+
+.form-buttons {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.form-buttons .layui-btn {
+    margin: 0 10px;
+    min-width: 100px;
+}
+
+.layui-form-required:before {
+    content: "*";
+    color: #ff5722;
+    margin-right: 4px;
+} 
